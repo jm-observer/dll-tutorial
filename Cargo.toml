@@ -1,15 +1,7 @@
-[package]
-name = "rust-dll-demo"
-version = "0.1.0"
-edition = "2018"
-authors = ["Rolf Karp <rolf.karp@gmail.com>"]
-publish = false
+[workspace]
+members = ["dll-lib", "dll-user"]
+default-members = ["dll-lib"]
 
-[dependencies]
-winapi = { version = "0.3.8", features = ["consoleapi", "minwindef"] }
-
-[lib]
-crate-type = ["cdylib"]
 
 [profile.release]
 lto = true
