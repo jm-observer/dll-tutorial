@@ -14,24 +14,34 @@ use winapi::um::consoleapi;
 /// though it is unclear what that that means exactly for DllMain.
 #[no_mangle]
 #[allow(non_snake_case, unused_variables)]
-extern "system" fn DllMain(
-    dll_module: HINSTANCE,
-    call_reason: DWORD,
-    reserved: LPVOID)
-    -> BOOL
-{
+extern "system" fn DllMain(dll_module: HINSTANCE, call_reason: DWORD, reserved: LPVOID) -> BOOL {
     const DLL_PROCESS_ATTACH: DWORD = 1;
     const DLL_PROCESS_DETACH: DWORD = 0;
 
     match call_reason {
         DLL_PROCESS_ATTACH => demo_init(),
         DLL_PROCESS_DETACH => (),
-        _ => ()
+        _ => (),
     }
     minwindef::TRUE
 }
 
 fn demo_init() {
     unsafe { consoleapi::AllocConsole() };
-    println!("Hello, world!");
+    println!("Hello, world!111111111111111111");
+}
+
+#[no_mangle]
+fn adds(arg1: u8, arg2: u16, arg3: u32) -> usize {
+    arg1 as usize + arg2 as usize + arg3 as usize
+}
+
+#[no_mangle]
+pub fn pub_adds(arg1: u8, arg2: u16, arg3: u32) -> usize {
+    arg1 as usize + arg2 as usize + arg3 as usize
+}
+
+#[no_mangle]
+pub extern "C" fn pub_adds_v2(arg1: u8, arg2: u16, arg3: u32) -> usize {
+    arg1 as usize + arg2 as usize + arg3 as usize
 }
